@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useRef } from 'react';
 
-import { GridContainer, GridItem } from '@/components/MasonryGrid/components';
 import defaultConfigs from '@/components/MasonryGrid/configs';
 import { computeScrollMetrics } from '@/components/MasonryGrid/helpers';
 import {
@@ -8,6 +7,22 @@ import {
   useCalculatePositions,
 } from '@/components/MasonryGrid/hooks';
 import { MasonryGridProps } from '@/components/MasonryGrid/types';
+import styled from 'styled-components';
+
+const Item = styled.div`
+  position: absolute;
+  color: black;
+  overflow: hidden;
+  will-change: transform;
+  transition: transform 0.2s ease-out;
+`;
+
+const Image = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 const MasonryGrid: React.FC<MasonryGridProps> = ({
   items,
@@ -49,11 +64,24 @@ const MasonryGrid: React.FC<MasonryGridProps> = ({
   }, [containerElRef, items, positions, virtualizationBuffer]);
 
   return (
-    <GridContainer containerRef={containerElRef}>
-      {getVisibleItems().map((item) => (
-        <GridItem key={item.id} item={item} position={positions[item.id]} />
-      ))}
-    </GridContainer>
+    <div ref={containerElRef}>
+      {getVisibleItems().map((item) => {
+        const position = positions[item.id];
+        return (
+          <Item
+            key={item.id}
+            style={{
+              transform: `translate(${position.x}px, ${position.y}px)`,
+              width: position.width,
+              height: position.height,
+              background: item.avgColor,
+            }}
+          >
+            <Image src={item.src} loading="lazy" alt="" />
+          </Item>
+        );
+      })}
+    </div>
   );
 };
 

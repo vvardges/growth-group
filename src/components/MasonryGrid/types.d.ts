@@ -9,6 +9,7 @@ export interface GridItemType {
   src: string;
   id: number;
   aspectRatio: number;
+  avgColor: string;
 }
 
 export interface MasonryGridProps {

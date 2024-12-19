@@ -4,13 +4,16 @@ import MasonryGrid from '@/components/MasonryGrid';
 
 const fetchPhotos = async () => {
   const apiKey = import.meta.env.VITE_PEXELS_API_KEY;
-  const response = await fetch('https://api.pexels.com/v1/curated?per_page=20', {
-    method: 'GET',
-    headers: {
-      Authorization: apiKey,
-      'Content-Type': 'application/json',
+  const response = await fetch(
+    'https://api.pexels.com/v1/curated?per_page=10',
+    {
+      method: 'GET',
+      headers: {
+        Authorization: apiKey,
+        'Content-Type': 'application/json',
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     throw new Error('Failed to fetch data from Pexels API');
@@ -34,6 +37,7 @@ const Gallery: React.FC = () => {
             src: photo.src.medium,
             aspectRatio: photo.width / photo.height,
             id: photo.id,
+            avgColor: photo.avg_color,
           })),
         );
       } catch (err) {
