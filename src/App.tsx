@@ -5,8 +5,6 @@ const Gallery = React.lazy(() => import('@/modules/Gallery'));
 const Photo = React.lazy(() => import('@/modules/Photo'));
 const NotFound = React.lazy(() => import('@/modules/NotFound'));
 
-import '@/App.css';
-
 const App: React.FC = () => {
   return (
     <Router>
