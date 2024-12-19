@@ -8,7 +8,7 @@ const NotFound = React.lazy(() => import('@/modules/NotFound'));
 const App: React.FC = () => {
   return (
     <Router>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading0...</div>}>
         <Routes>
           <Route path="/" element={<Gallery />} />
           <Route path="/photo/:id" element={<Photo />} />

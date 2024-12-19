@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface PositionType {
   x: number;
   y: number;
@@ -8,10 +6,9 @@ export interface PositionType {
 }
 
 export interface GridItemType {
-  value?: React.ReactNode;
-  key: string;
-  originalWidth: number;
-  originalHeight: number;
+  src: string;
+  id: number;
+  aspectRatio: number;
 }
 
 export interface MasonryGridProps {

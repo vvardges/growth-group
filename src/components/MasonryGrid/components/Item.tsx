@@ -11,6 +11,13 @@ const Item = styled.div`
   overflow: hidden;
   will-change: transform;
   transition: transform 0.2s ease-out;
+  border-radius: 5px;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 interface GridItemProps {
@@ -22,14 +29,14 @@ interface GridItemProps {
 const GridItem: React.FC<GridItemProps> = ({ item, position }) => {
   return (
     <Item
-      key={item.key}
+      key={item.id}
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
         width: position.width,
         height: position.height,
       }}
     >
-      {item.value}
+      <Image src={item.src} loading="lazy" alt="" />
     </Item>
   );
 };

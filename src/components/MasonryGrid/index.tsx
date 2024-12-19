@@ -39,7 +39,7 @@ const MasonryGrid: React.FC<MasonryGridProps> = ({
     const viewportBottomWithBuffer = scrollTop + clientHeight + bufferHeight;
 
     return items.filter((item) => {
-      const pos = positions[item.key];
+      const pos = positions[item.id];
       return (
         pos &&
         pos.y + pos.height > scrollTop - bufferHeight &&
@@ -50,10 +50,9 @@ const MasonryGrid: React.FC<MasonryGridProps> = ({
 
   return (
     <GridContainer containerRef={containerElRef}>
-      {getVisibleItems().map((item) => {
-        const pos = positions[item.key];
-        return <GridItem key={item.key} item={item} position={pos} />;
-      })}
+      {getVisibleItems().map((item) => (
+        <GridItem key={item.id} item={item} position={positions[item.id]} />
+      ))}
     </GridContainer>
   );
 };

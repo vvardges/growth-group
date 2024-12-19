@@ -4,7 +4,6 @@ import { useState, useCallback, useEffect } from 'react';
 import { computeGridPositions } from '@/components/MasonryGrid/helpers';
 import { GridItemType, PositionType } from '@/components/MasonryGrid/types';
 
-
 /**
  * Custom hook to calculate the positions of grid items in a masonry grid layout.
  * @param containerRef - Reference to the container element.

@@ -39,13 +39,12 @@ export const computeGridPositions = (
   const positions: Record<string, PositionType> = {};
 
   for (const item of items) {
-    const aspectRatio = item.originalWidth / item.originalHeight;
-    const height = Number((columnWidth / aspectRatio).toFixed(2));
+    const height = Number((columnWidth / item.aspectRatio).toFixed(2));
     const minColumnIndex = columnHeights.indexOf(Math.min(...columnHeights));
     const x = Number((minColumnIndex * (columnWidth + gap)).toFixed(2));
     const y = Number(columnHeights[minColumnIndex].toFixed(2));
 
-    positions[item.key] = {
+    positions[item.id] = {
       x,
       y,
       width: columnWidth,
