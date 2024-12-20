@@ -22,7 +22,6 @@ const Layout: React.FC<{
   loading: boolean;
   error: string | null;
 }> = ({ loading, error, children }) => {
-  console.log(loading);
   return (
     <>
       {loading && <Loader />}
