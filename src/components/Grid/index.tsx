@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useRef } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import defaultConfigs from '@/components/Grid/configs';
@@ -6,8 +6,10 @@ import { computeScrollMetrics } from '@/components/Grid/helpers';
 import {
   useColumnSettings,
   useCalculatePositions,
+  useScrollToBottom,
 } from '@/components/Grid/hooks';
-import { GridProps } from '@/components/Grid/types';
+import type { GridProps, GridItemType } from '@/components/Grid/types';
+import { isEqual } from 'lodash-es';
 
 const Item = styled.div`
   position: absolute;
@@ -26,11 +28,15 @@ const Image = styled.img`
 
 const Grid: React.FC<GridProps> = ({
   items,
+  onLoadMore,
+  isLoading,
   gap = defaultConfigs.gap,
-  virtualizationBuffer = defaultConfigs.buffer,
+  buffer = defaultConfigs.buffer,
   breakpoints = defaultConfigs.breakpoints,
 }) => {
   const containerElRef = useRef<HTMLDivElement | null>(null);
+  const [visibleItems, setVisibleItems] = useState<GridItemType[] | []>([]);
+  const isAtBottom = useScrollToBottom(buffer);
 
   const { columnWidth, columnCount } = useColumnSettings(
     containerElRef,
@@ -49,7 +55,7 @@ const Grid: React.FC<GridProps> = ({
   const getVisibleItems = useCallback(() => {
     const { scrollTop, clientHeight, bufferHeight } = computeScrollMetrics(
       containerElRef,
-      virtualizationBuffer,
+      buffer,
     );
     const viewportBottomWithBuffer = scrollTop + clientHeight + bufferHeight;
 
@@ -61,11 +67,26 @@ const Grid: React.FC<GridProps> = ({
         pos.y < viewportBottomWithBuffer
       );
     });
-  }, [containerElRef, items, positions, virtualizationBuffer]);
+  }, [containerElRef, items, positions, buffer]);
+
+  const updateVisibleItems = useCallback(() => {
+    const items = getVisibleItems();
+    setVisibleItems((prev: GridItemType[]) => (isEqual(items, prev) ? prev : items));
+  }, [getVisibleItems]);
+
+  useEffect(() => {
+    updateVisibleItems();
+  }, [updateVisibleItems]);
+
+  useEffect(() => {
+    if (isAtBottom && !isLoading) {
+      onLoadMore && onLoadMore();
+    }
+  }, [isAtBottom]);
 
   return (
     <div ref={containerElRef}>
-      {getVisibleItems().map((item) => {
+      {visibleItems.map((item: GridItemType) => {
         const position = positions[item.id];
         return (
           <Item

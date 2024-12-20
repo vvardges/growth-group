@@ -2,7 +2,7 @@ import { throttle } from 'lodash-es';
 import { useState, useCallback, useEffect } from 'react';
 
 import { computeGridPositions } from '@/components/Grid/helpers';
-import { GridItemType, PositionType } from '@/components/Grid/types';
+import type { GridItemType, PositionType } from '@/components/Grid/types';
 
 /**
  * Custom hook to calculate the positions of grid items in a masonry grid layout.

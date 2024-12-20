@@ -3,22 +3,23 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { fetchPhoto } from '@/fetchUtils';
 import Loader from '../components/Loader';
+import type {PhotoType} from "@/fetchUtils";
 
 const Photo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const [photo, setPhoto] = useState();
+  const [photo, setPhoto] = useState<PhotoType>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async (id) => {
+    const fetchData = async (id: string) => {
       try {
         const fetchedPhoto = await fetchPhoto(id);
         setPhoto(fetchedPhoto);
       } catch (err) {
-        setError(err.message);
+        //setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -40,12 +41,12 @@ const Photo: React.FC = () => {
     <div>
       <h1>Photo {id}</h1>
       <button onClick={() => navigate(-1)}>Close</button>
-      <img
+      {photo && <img
         src={photo.src.original}
         alt={`Photo ${id}`}
         width="100%"
         height="100%"
-      />
+      />}
     </div>
   );
 };

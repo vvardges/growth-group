@@ -10,12 +10,15 @@ export interface GridItemType {
   id: number;
   aspectRatio: number;
   avgColor: string;
+  onClick: () => void;
 }
 
 export interface GridProps {
   items: GridItemType[];
+  onLoadMore?: () => void;
+  isLoading?: boolean;
   gap?: number;
-  virtualizationBuffer?: number;
+  buffer?: number;
   breakpoints?: GridBreakpoint[];
 }
 
