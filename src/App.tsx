@@ -2,9 +2,9 @@ import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Loader from '@/components/Loader';
 
-const Gallery = React.lazy(() => import('@/modules/Gallery'));
-const Photo = React.lazy(() => import('@/modules/Photo'));
-const NotFound = React.lazy(() => import('@/modules/NotFound'));
+const Gallery = React.lazy(() => import('@/pages/Gallery'));
+const Photo = React.lazy(() => import('@/pages/Photo'));
+const NotFound = React.lazy(() => import('@/pages/NotFound'));
 
 const App: React.FC = () => {
   return (

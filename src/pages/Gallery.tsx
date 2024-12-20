@@ -3,20 +3,20 @@ import { useNavigate } from 'react-router-dom';
 
 import Grid from '@/components/Grid';
 import { fetchPhotos } from '@/fetchUtils';
-import Loader from '@/components/Loader';
-import type {GridItemType} from "@/components/Grid/types";
-import type {PhotoType} from "@/fetchUtils.ts";
+import type { GridItemType } from '@/components/Grid/types';
+import type { PhotoType } from '@/fetchUtils.ts';
+import Layout from '@/components/Layout';
 
 const Gallery: React.FC = () => {
   const navigate = useNavigate();
 
   const [photos, setPhotos] = useState<GridItemType[] | []>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
 
   const fetchData = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       const fetchedPhotos = await fetchPhotos();
       setPhotos((prevPhotos: GridItemType[]) => [
         ...prevPhotos,
@@ -29,7 +29,9 @@ const Gallery: React.FC = () => {
         })),
       ]);
     } catch (err) {
-      //setError(err.message);
+      if (err instanceof Error && err.message) {
+        setError(err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -39,15 +41,10 @@ const Gallery: React.FC = () => {
     fetchData();
   }, []);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
-    <>
-      {loading && <Loader />}
+    <Layout loading={loading} error={error}>
       <Grid items={photos} onLoadMore={fetchData} isLoading={loading} />
-    </>
+    </Layout>
   );
 };
 

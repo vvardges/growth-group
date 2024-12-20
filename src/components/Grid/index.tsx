@@ -71,7 +71,9 @@ const Grid: React.FC<GridProps> = ({
 
   const updateVisibleItems = useCallback(() => {
     const items = getVisibleItems();
-    setVisibleItems((prev: GridItemType[]) => (isEqual(items, prev) ? prev : items));
+    setVisibleItems((prev: GridItemType[]) =>
+      isEqual(items, prev) ? prev : items,
+    );
   }, [getVisibleItems]);
 
   useEffect(() => {
