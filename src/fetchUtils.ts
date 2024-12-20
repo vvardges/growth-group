@@ -1,7 +1,7 @@
 const API_KEY = import.meta.env.VITE_PEXELS_API_KEY;
 const URL = 'https://api.pexels.com/v1/';
 
-export interface PhotoType {
+export interface fetchedPhotoType {
   id: number;
   src: {
     medium: string;
@@ -10,6 +10,7 @@ export interface PhotoType {
   width: number;
   height: number;
   avg_color: number;
+  alt: string;
 }
 
 const fetchFromPexels = (url: string) => {

@@ -11,6 +11,7 @@ export interface GridItemType {
   aspectRatio: number;
   avgColor: string;
   onClick: () => void;
+  alt: string;
 }
 
 export interface GridProps {

@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { fetchPhoto } from '@/fetchUtils';
-import type { PhotoType } from '@/fetchUtils';
-import Layout from "@/components/Layout";
+import Layout from '@/components/Layout';
+import Card from '@/components/Card';
+import type { CardProps } from '@/components/Card';
 
 const Photo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const [photo, setPhoto] = useState<PhotoType>();
+  const [details, setDetails] = useState<CardProps>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -18,7 +19,13 @@ const Photo: React.FC = () => {
     const fetchData = async (id: string) => {
       try {
         const fetchedPhoto = await fetchPhoto(id);
-        setPhoto(fetchedPhoto);
+        setDetails({
+          imageUrl: fetchedPhoto.src.original,
+          photographerName: fetchedPhoto.photographer,
+          photographerLink: fetchedPhoto.photographer_url,
+          description: fetchedPhoto.alt,
+          onClose: () => navigate(-1),
+        });
       } catch (err) {
         if (err instanceof Error && err.message) {
           setError(err.message);
@@ -34,15 +41,7 @@ const Photo: React.FC = () => {
 
   return (
     <Layout loading={loading} error={error}>
-      <button onClick={() => navigate(-1)}>Close</button>
-      {photo && (
-        <img
-          src={photo.src.original}
-          alt={`Photo ${id}`}
-          width="100%"
-          height="100%"
-        />
-      )}
+      {details && <Card {...details} />}
     </Layout>
   );
 };

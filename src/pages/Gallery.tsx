@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Grid from '@/components/Grid';
 import { fetchPhotos } from '@/fetchUtils';
 import type { GridItemType } from '@/components/Grid/types';
-import type { PhotoType } from '@/fetchUtils.ts';
+import type { fetchedPhotoType } from '@/fetchUtils.ts';
 import Layout from '@/components/Layout';
 
 const Gallery: React.FC = () => {
@@ -20,7 +20,7 @@ const Gallery: React.FC = () => {
       const fetchedPhotos = await fetchPhotos();
       setPhotos((prevPhotos: GridItemType[]) => [
         ...prevPhotos,
-        ...fetchedPhotos.map((photo: PhotoType) => ({
+        ...fetchedPhotos.map((photo: fetchedPhotoType) => ({
           src: photo.src.medium,
           aspectRatio: photo.width / photo.height,
           id: Math.random(),

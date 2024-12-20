@@ -17,6 +17,13 @@ const Item = styled.div`
   overflow: hidden;
   will-change: transform;
   transition: transform 0.2s ease-out;
+  cursor: pointer;
+
+  &:hover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const Image = styled.img`
@@ -101,7 +108,7 @@ const Grid: React.FC<GridProps> = ({
             }}
             onClick={item.onClick}
           >
-            <Image src={item.src} loading="lazy" alt="" />
+            <Image src={item.src} loading="lazy" alt={item.alt} />
           </Item>
         );
       })}
