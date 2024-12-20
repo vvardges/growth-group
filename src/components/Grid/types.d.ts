@@ -12,7 +12,7 @@ export interface GridItemType {
   avgColor: string;
 }
 
-export interface MasonryGridProps {
+export interface GridProps {
   items: GridItemType[];
   gap?: number;
   virtualizationBuffer?: number;

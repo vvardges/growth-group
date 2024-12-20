@@ -1,13 +1,13 @@
 import React, { memo, useCallback, useRef } from 'react';
+import styled from 'styled-components';
 
-import defaultConfigs from '@/components/MasonryGrid/configs';
-import { computeScrollMetrics } from '@/components/MasonryGrid/helpers';
+import defaultConfigs from '@/components/Grid/configs';
+import { computeScrollMetrics } from '@/components/Grid/helpers';
 import {
   useColumnSettings,
   useCalculatePositions,
-} from '@/components/MasonryGrid/hooks';
-import { MasonryGridProps } from '@/components/MasonryGrid/types';
-import styled from 'styled-components';
+} from '@/components/Grid/hooks';
+import { GridProps } from '@/components/Grid/types';
 
 const Item = styled.div`
   position: absolute;
@@ -24,7 +24,7 @@ const Image = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-const MasonryGrid: React.FC<MasonryGridProps> = ({
+const Grid: React.FC<GridProps> = ({
   items,
   gap = defaultConfigs.gap,
   virtualizationBuffer = defaultConfigs.buffer,
@@ -76,6 +76,7 @@ const MasonryGrid: React.FC<MasonryGridProps> = ({
               height: position.height,
               background: item.avgColor,
             }}
+            onClick={item.onClick}
           >
             <Image src={item.src} loading="lazy" alt="" />
           </Item>
@@ -85,4 +86,4 @@ const MasonryGrid: React.FC<MasonryGridProps> = ({
   );
 };
 
-export default memo(MasonryGrid);
+export default memo(Grid);

@@ -1,7 +1,7 @@
 import { throttle } from 'lodash-es';
 import { useState, useEffect, useCallback } from 'react';
 
-import { GridBreakpoint } from '@/components/MasonryGrid/types';
+import { GridBreakpoint } from '@/components/Grid/types';
 
 /**
  * Custom hook to calculate column settings based on container width and breakpoints.

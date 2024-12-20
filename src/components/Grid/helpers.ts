@@ -1,6 +1,6 @@
 import { RefObject } from 'react';
 
-import { GridItemType, PositionType } from '@/components/MasonryGrid/types';
+import { GridItemType, PositionType } from '@/components/Grid/types';
 
 /**
  * Compute scroll metrics for a given container element.

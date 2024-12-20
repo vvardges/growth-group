@@ -1,15 +1,50 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { fetchPhoto } from '@/fetchUtils';
+import Loader from '../components/Loader';
 
 const Photo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+
+  const [photo, setPhoto] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async (id) => {
+      try {
+        const fetchedPhoto = await fetchPhoto(id);
+        setPhoto(fetchedPhoto);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (id) {
+      fetchData(id);
+    }
+  }, [id]);
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
       <h1>Photo {id}</h1>
+      <button onClick={() => navigate(-1)}>Close</button>
       <img
-        src={`https://via.placeholder.com/600x400?text=Photo+${id}`}
+        src={photo.src.original}
         alt={`Photo ${id}`}
+        width="100%"
+        height="100%"
       />
     </div>
   );
