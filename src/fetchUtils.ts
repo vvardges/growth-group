@@ -22,7 +22,7 @@ const fetchFromPexels = (url: string) => {
   });
 };
 
-let fetchPhotosUrl = `${URL}curated?per_page=60`;
+let fetchPhotosUrl = `${URL}curated?per_page=600`;
 export const fetchPhotos = async () => {
   const response = await fetchFromPexels(fetchPhotosUrl);
 

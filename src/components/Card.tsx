@@ -74,7 +74,7 @@ const Card: React.FC<CardProps> = ({
     <Container>
       <Image src={imageUrl} alt={description} />
       <Content>
-          {description && <Description>{description}</Description>}
+        {description && <Description>{description}</Description>}
         <Photographer href={photographerLink} target="_blank">
           {photographerName}
         </Photographer>
