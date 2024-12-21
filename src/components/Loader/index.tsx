@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Content, Wrapper} from "@/components/Loader/styled";
+import { Content, Wrapper } from '@/components/Loader/styled';
 
 const Loader: React.FC<{
   loading: boolean;

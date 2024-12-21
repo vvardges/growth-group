@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'isVisible',
+  shouldForwardProp: (prop) => prop !== 'isVisible',
 })<{
-    isVisible: boolean;
+  isVisible: boolean;
 }>`
   visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
   position: sticky;

@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 
-import {Input} from "@/components/Search/styled";
+import { Input } from '@/components/Search/styled';
 
 const Search: React.FC<{
   onSubmit: (value: string) => void;

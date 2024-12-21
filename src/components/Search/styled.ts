@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Input = styled.input`
   position: sticky;
@@ -12,4 +12,5 @@ export const Input = styled.input`
   border: none;
   outline: none;
   color: white;
+  border-radius: 0;
 `;
