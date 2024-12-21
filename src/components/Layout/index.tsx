@@ -5,7 +5,11 @@ import type { LayoutProps } from '@/components/Layout/types';
 import { Error } from '@/components/Layout/styled';
 import Loader from '@/components/Loader';
 
-const Layout: React.FC<LayoutProps> = ({ loading, error, children }) => {
+const Layout: React.FC<LayoutProps> = ({
+  loading = false,
+  error,
+  children,
+}) => {
   return (
     <>
       <Loader loading={loading} />

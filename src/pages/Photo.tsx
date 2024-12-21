@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import type { CardProps } from '@/components/Card';
+import type { CardProps } from '@/components/Card/types';
 
 import Card from '@/components/Card';
 import Layout from '@/components/Layout';
