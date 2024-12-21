@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Input = styled.input`
-  top: 5px;
   width: 100%;
   height: 50px;
   z-index: 2;
