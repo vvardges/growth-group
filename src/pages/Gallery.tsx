@@ -8,14 +8,16 @@ import Grid from '@/components/Grid';
 import Layout from '@/components/Layout';
 import Search from '@/components/Search';
 import { getPhotos, searchPhotos, fetchMorePhotos } from '@/fetchUtils';
+import { DEFAULT_GRID_CONFIGS, PHOTOS_PER_PAGE } from '@/constants';
 
-const mapFetchedPhoto = (photo: fetchedPhotoType) => {
+const mapFetchedPhoto = (photo: fetchedPhotoType, index: number) => {
   return {
     src: photo.src.medium,
     aspectRatio: photo.width / photo.height,
     id: photo.id,
     avgColor: photo.avg_color,
     key: Math.random(),
+    isCritical: index < PHOTOS_PER_PAGE,
   };
 };
 
@@ -32,6 +34,7 @@ const Gallery: React.FC = () => {
       const fetchedPhotos = query
         ? await searchPhotos(query)
         : await getPhotos();
+
       setPhotos(fetchedPhotos.map(mapFetchedPhoto));
     } catch (err) {
       if (err instanceof Error && err.message && err.name !== 'AbortError') {
@@ -75,6 +78,7 @@ const Gallery: React.FC = () => {
     <Layout loading={loading} error={error}>
       <Search onSubmit={(query) => fetchInitialData(query)} />
       <Grid
+        {...DEFAULT_GRID_CONFIGS}
         items={photos}
         onItemClick={handleItemClick}
         onLoadMore={fetchMoreData}

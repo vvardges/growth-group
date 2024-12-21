@@ -14,7 +14,7 @@ const Item: React.FC<ItemProps> = ({ item, position, onClick }) => (
     }}
     onClick={() => onClick(item.id)}
   >
-    <Image src={item.src} loading="lazy" alt={item.alt} />
+    <Image src={item.src} loading={item.isCritical ? "eager" : "lazy"} alt={item.alt} />
   </Wrapper>
 );
 

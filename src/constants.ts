@@ -1,4 +1,4 @@
-export default {
+export const DEFAULT_GRID_CONFIGS = {
   breakpoints: [
     // Breakpoints for different screen sizes
     { width: 1920, columns: 9 },
@@ -11,3 +11,5 @@ export default {
   gap: 16, // Gap between columns and rows in pixels
   buffer: 10, // Percentage of the viewport height to use as a buffer for pre-loading items
 };
+
+export const PHOTOS_PER_PAGE = 60;

@@ -4,7 +4,6 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import type { GridProps, GridItemType } from '@/components/Grid/types';
 
 import Item from '@/components/Grid/components/Item';
-import defaultConfigs from '@/components/Grid/configs';
 import { computeScrollMetrics } from '@/components/Grid/helpers';
 import { useCalculatePositions } from '@/components/Grid/hooks';
 import useHandleScroll from '@/components/Grid/hooks/useHandleScroll';
@@ -14,9 +13,9 @@ const Grid: React.FC<GridProps> = ({
   items,
   onItemClick,
   onLoadMore,
-  gap = defaultConfigs.gap,
-  buffer = defaultConfigs.buffer,
-  breakpoints = defaultConfigs.breakpoints,
+  gap,
+  buffer,
+  breakpoints,
 }) => {
   const containerElRef = useRef<HTMLDivElement | null>(null);
   const contentElRef = useRef<HTMLDivElement | null>(null);

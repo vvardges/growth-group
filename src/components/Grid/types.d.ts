@@ -13,15 +13,16 @@ export interface GridItemType {
   avgColor: string;
   onClick: () => void;
   alt: string;
+  isCritical?: boolean
 }
 
 export interface GridProps {
   items: GridItemType[];
   onItemClick: (id: number) => void;
   onLoadMore?: () => void;
-  gap?: number;
-  buffer?: number;
-  breakpoints?: GridBreakpoint[];
+  gap: number;
+  buffer: number;
+  breakpoints: GridBreakpoint[];
 }
 
 export interface GridBreakpoint {
