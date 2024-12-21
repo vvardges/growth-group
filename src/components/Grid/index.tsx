@@ -3,12 +3,12 @@ import React, { memo, useEffect, useRef } from 'react';
 
 import type { GridProps, GridItemType } from '@/components/Grid/types';
 
+import Item from '@/components/Grid/components/Item';
 import defaultConfigs from '@/components/Grid/configs';
 import {
   useCalculatePositions,
   useScrollToBottom,
 } from '@/components/Grid/hooks';
-import Item from '@/components/Grid/components/Item';
 
 const Grid: React.FC<GridProps> = ({
   items,

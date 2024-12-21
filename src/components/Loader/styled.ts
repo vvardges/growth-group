@@ -1,10 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
+import styled from "styled-components";
 
-const Wrapper = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== 'isVisible',
+export const Wrapper = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isVisible',
 })<{
-  isVisible: boolean;
+    isVisible: boolean;
 }>`
   visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
   position: sticky;
@@ -14,7 +13,7 @@ const Wrapper = styled.div.withConfig({
   z-index: 3;
 `;
 
-const Content = styled.div`
+export const Content = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -52,15 +51,3 @@ const Content = styled.div`
     }
   }
 `;
-
-const Loader: React.FC<{
-  loading: boolean;
-}> = ({ loading }) => {
-  return (
-    <Wrapper isVisible={loading}>
-      <Content className="loading-line"></Content>
-    </Wrapper>
-  );
-};
-
-export default Loader;
