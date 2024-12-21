@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Item = styled.div`
+export const Wrapper = styled.div`
   position: absolute;
   color: black;
   overflow: hidden;

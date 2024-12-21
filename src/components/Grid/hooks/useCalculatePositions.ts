@@ -1,10 +1,13 @@
 import { throttle } from 'lodash-es';
 import React, { useState, useCallback, useEffect } from 'react';
 
-import type { GridItemType, PositionType } from '@/components/Grid/types';
+import type {
+  GridItemType,
+  PositionType,
+  GridBreakpoint,
+} from '@/components/Grid/types';
 
-import { computeGridPositions } from '@/components/Grid/helpers';
-import { GridBreakpoint } from '@/components/Grid/types';
+import { computeGridPositions } from '@/components/Grid/hooks/helpers';
 import useColumnSettings from '@/components/Grid/hooks/useColumnSettings';
 
 /**
