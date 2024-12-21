@@ -21,7 +21,6 @@ const mapFetchedPhoto = (photo: fetchedPhotoType) => {
 const Gallery: React.FC = () => {
   const navigate = useNavigate();
 
-  const [nextPageUrl, setNextPageUrl] = useState();
   const [photos, setPhotos] = useState<GridItemType[] | []>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -29,11 +28,9 @@ const Gallery: React.FC = () => {
   const fetchInitialData = async (query?: string | undefined) => {
     setLoading(true);
     try {
-      const { photos: fetchedPhotos, next_page } = query
+      const fetchedPhotos = query
         ? await searchPhotos(query)
         : await getPhotos();
-
-      setNextPageUrl(next_page);
       setPhotos(fetchedPhotos.map(mapFetchedPhoto));
     } catch (err) {
       if (err instanceof Error && err.message) {
@@ -45,14 +42,10 @@ const Gallery: React.FC = () => {
   };
 
   const fetchMoreData = async () => {
-    if (!nextPageUrl) return;
-
     setLoading(true);
     try {
-      const { photos: fetchedPhotos, next_page } =
-        await fetchMorePhotos(nextPageUrl);
+      const fetchedPhotos = await fetchMorePhotos();
 
-      setNextPageUrl(next_page);
       setPhotos((prevPhotos: GridItemType[]) => [
         ...prevPhotos,
         ...fetchedPhotos.map(mapFetchedPhoto),

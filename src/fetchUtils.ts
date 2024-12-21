@@ -24,6 +24,8 @@ const fetchFromPexels = (url: string) => {
   });
 };
 
+let nextPageUrl: string;
+
 export const getPhotos = async () => {
   const response = await fetchFromPexels(
     `${URL}curated?per_page=${PHOTOS_PER_PAGE}`,
@@ -34,7 +36,8 @@ export const getPhotos = async () => {
   }
 
   const { photos, next_page } = await response.json();
-  return { photos, next_page };
+  nextPageUrl = next_page;
+  return photos;
 };
 
 export const searchPhotos = async (query: string) => {
@@ -47,7 +50,8 @@ export const searchPhotos = async (query: string) => {
   }
 
   const { photos, next_page } = await response.json();
-  return { photos, next_page };
+  nextPageUrl = next_page;
+  return photos;
 };
 
 export const getPhoto = async (id: string) => {
@@ -60,13 +64,16 @@ export const getPhoto = async (id: string) => {
   return await response.json();
 };
 
-export const fetchMorePhotos = async (url: string) => {
-  const response = await fetchFromPexels(url);
+export const fetchMorePhotos = async () => {
+  if (!nextPageUrl) return [];
+
+  const response = await fetchFromPexels(nextPageUrl);
 
   if (!response.ok) {
     throw new Error('Failed to fetch data from Pexels API');
   }
 
   const { photos, next_page } = await response.json();
-  return { photos, next_page };
+  nextPageUrl = next_page;
+  return photos;
 };
