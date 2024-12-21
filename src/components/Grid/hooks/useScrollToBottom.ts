@@ -18,13 +18,10 @@ const useScrollToBottom = (buffer: number = 10) => {
   useEffect(() => {
     const handleScroll = () => checkScrollPosition();
     window.addEventListener('scroll', handleScroll);
-
-    checkScrollPosition();
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [buffer]);
+  });
 
   return isAtBottom;
 };

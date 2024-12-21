@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { getPhoto } from '@/fetchUtils';
-import Layout from '@/components/Layout';
-import Card from '@/components/Card';
 import type { CardProps } from '@/components/Card';
+
+import Card from '@/components/Card';
+import Layout from '@/components/Layout';
+import { getPhoto } from '@/fetchUtils';
 
 const Photo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,7 +25,6 @@ const Photo: React.FC = () => {
           photographerName: fetchedPhoto.photographer,
           photographerLink: fetchedPhoto.photographer_url,
           description: fetchedPhoto.alt,
-          onClose: () => navigate(-1),
         });
       } catch (err) {
         if (err instanceof Error && err.message) {
@@ -41,7 +41,7 @@ const Photo: React.FC = () => {
 
   return (
     <Layout loading={loading} error={error}>
-      {details && <Card {...details} />}
+      {details && <Card {...details} onClose={() => navigate(-1)} />}
     </Layout>
   );
 };

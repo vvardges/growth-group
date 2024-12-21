@@ -19,7 +19,6 @@ export interface GridProps {
   items: GridItemType[];
   onItemClick: (id: number) => void;
   onLoadMore?: () => void;
-  isLoading?: boolean;
   gap?: number;
   buffer?: number;
   breakpoints?: GridBreakpoint[];

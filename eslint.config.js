@@ -28,13 +28,12 @@ export default tseslint.config(
       'import/order': [
         'error',
         {
-          groups: [
-            ['builtin', 'external'],
-            ['internal'],
-            ['parent'],
-            ['sibling'],
-            ['index'],
-          ],
+            "groups": [
+                ["builtin", "external"],
+                ["internal"],
+                ["type"],
+                ["parent", "sibling", "index"]
+            ],
           'newlines-between': 'always',
           alphabetize: {
             order: 'asc',
@@ -43,5 +42,12 @@ export default tseslint.config(
         },
       ],
     },
+      settings: {
+          "import/resolver": {
+              node: {
+                  extensions: [".js", ".jsx", ".ts", ".tsx"]
+              }
+          }
+      }
   },
 );

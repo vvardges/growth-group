@@ -60,7 +60,7 @@ export interface CardProps {
   photographerName: string;
   photographerLink: string;
   description?: string;
-  onClose: () => void | Promise<void>;
+  onClose?: () => void | Promise<void>;
 }
 
 const Card: React.FC<CardProps> = ({

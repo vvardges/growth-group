@@ -1,5 +1,8 @@
+import { isEqual, isFunction } from 'lodash-es';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+
+import type { GridProps, GridItemType } from '@/components/Grid/types';
 
 import defaultConfigs from '@/components/Grid/configs';
 import { computeScrollMetrics } from '@/components/Grid/helpers';
@@ -8,8 +11,6 @@ import {
   useCalculatePositions,
   useScrollToBottom,
 } from '@/components/Grid/hooks';
-import type { GridProps, GridItemType } from '@/components/Grid/types';
-import { isEqual } from 'lodash-es';
 
 const Item = styled.div`
   position: absolute;
@@ -37,7 +38,6 @@ const Grid: React.FC<GridProps> = ({
   items,
   onItemClick,
   onLoadMore,
-  isLoading,
   gap = defaultConfigs.gap,
   buffer = defaultConfigs.buffer,
   breakpoints = defaultConfigs.breakpoints,
@@ -89,10 +89,10 @@ const Grid: React.FC<GridProps> = ({
   }, [updateVisibleItems]);
 
   useEffect(() => {
-    if (isAtBottom && !isLoading) {
-      onLoadMore && onLoadMore();
+    if (isAtBottom && isFunction(onLoadMore)) {
+      onLoadMore();
     }
-  }, [isAtBottom]);
+  }, [isAtBottom, onLoadMore]);
 
   return (
     <div ref={containerElRef}>

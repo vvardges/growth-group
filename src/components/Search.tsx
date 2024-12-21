@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import styled from 'styled-components';
 
 const Input = styled.input`
@@ -15,23 +15,32 @@ const Input = styled.input`
 const Search: React.FC<{
   onSubmit: (value: string) => void;
 }> = ({ onSubmit }) => {
-  const [query, setQuery] = useState('');
+  const debounceTimer = useRef<number | null>(null);
 
-  let debounceTimer: number;
-  useEffect(() => {
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
-      onSubmit(query);
-    }, 0);
-    return () => clearTimeout(debounceTimer);
-  }, [query]);
+  const handleChange = useCallback(
+    (query: string) => {
+      if (debounceTimer.current !== null) {
+        clearTimeout(debounceTimer.current);
+      }
+
+      debounceTimer.current = setTimeout(() => {
+        onSubmit(query);
+      }, 500);
+
+      return () => {
+        if (debounceTimer.current !== null) {
+          clearTimeout(debounceTimer.current);
+        }
+      };
+    },
+    [onSubmit],
+  );
 
   return (
     <Input
       type="text"
-      value={query}
       placeholder="Search..."
-      onChange={(e) => setQuery(e.target.value)}
+      onChange={(e) => handleChange(e.target.value)}
     />
   );
 };

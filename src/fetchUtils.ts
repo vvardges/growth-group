@@ -51,8 +51,8 @@ export const searchPhotos = async (query: string) => {
   const signal = searchAbortController.signal;
 
   const response = await fetchFromPexels(
-      `${URL}search?query=${query}&per_page=${PHOTOS_PER_PAGE}`,
-      signal,
+    `${URL}search?query=${query}&per_page=${PHOTOS_PER_PAGE}`,
+    signal,
   );
 
   if (!response.ok) {

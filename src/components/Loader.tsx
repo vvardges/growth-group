@@ -55,7 +55,7 @@ const Content = styled.div`
 
 const Loader: React.FC<{
   loading: boolean;
-}> = ({ loading = false }) => {
+}> = ({ loading }) => {
   return (
     <Wrapper isVisible={loading}>
       <Content className="loading-line"></Content>

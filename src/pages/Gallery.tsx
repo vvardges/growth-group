@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Grid from '@/components/Grid';
-import { getPhotos, searchPhotos, fetchMorePhotos } from '@/fetchUtils';
 import type { GridItemType } from '@/components/Grid/types';
 import type { fetchedPhotoType } from '@/fetchUtils.ts';
+
+import Grid from '@/components/Grid';
 import Layout from '@/components/Layout';
 import Search from '@/components/Search';
+import { getPhotos, searchPhotos, fetchMorePhotos } from '@/fetchUtils';
 
 const mapFetchedPhoto = (photo: fetchedPhotoType) => {
   return {
@@ -41,7 +42,7 @@ const Gallery: React.FC = () => {
     }
   };
 
-  const fetchMoreData = async () => {
+  const fetchMoreData = useCallback(async () => {
     setLoading(true);
     try {
       const fetchedPhotos = await fetchMorePhotos();
@@ -57,7 +58,7 @@ const Gallery: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchInitialData();
@@ -77,7 +78,6 @@ const Gallery: React.FC = () => {
         items={photos}
         onItemClick={handleItemClick}
         onLoadMore={fetchMoreData}
-        isLoading={loading}
       />
     </Layout>
   );
