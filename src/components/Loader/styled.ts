@@ -16,8 +16,6 @@ export const Wrapper = styled.div.withConfig({
 export const Content = styled.div`
   position: absolute;
   top: 0;
-  left: 0;
-  width: 0;
   height: 100%;
   background: linear-gradient(
     to right,

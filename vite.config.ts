@@ -5,4 +5,21 @@ import tsconfigPaths from 'vite-plugin-tsconfig-paths';
 
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) {
+              return 'react-vendor';
+            }
+            if (id.includes('lodash-es')) {
+              return 'lodash-es-vendor';
+            }
+            return 'vendor';
+          }
+        },
+      },
+    },
+  },
 })
