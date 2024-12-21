@@ -1,14 +1,14 @@
-import { isFunction } from 'lodash-es';
-import React, { memo, useEffect, useRef } from 'react';
+import { isEqual, isFunction } from 'lodash-es';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import type { GridProps, GridItemType } from '@/components/Grid/types';
 
 import Item from '@/components/Grid/components/Item';
 import defaultConfigs from '@/components/Grid/configs';
-import {
-  useCalculatePositions,
-  useScrollToBottom,
-} from '@/components/Grid/hooks';
+import { computeScrollMetrics } from '@/components/Grid/helpers';
+import { useCalculatePositions } from '@/components/Grid/hooks';
+import useHandleScroll from '@/components/Grid/hooks/useHandleScroll';
+import { Container, Content } from '@/components/Grid/styled';
 
 const Grid: React.FC<GridProps> = ({
   items,
@@ -19,14 +19,38 @@ const Grid: React.FC<GridProps> = ({
   breakpoints = defaultConfigs.breakpoints,
 }) => {
   const containerElRef = useRef<HTMLDivElement | null>(null);
-  const isAtBottom = useScrollToBottom(buffer);
+  const contentElRef = useRef<HTMLDivElement | null>(null);
+
+  const { scrollTop, clientHeight, bufferHeight, scrollHeight } =
+    computeScrollMetrics(containerElRef, buffer);
+  const isAtBottom = scrollHeight - scrollTop - clientHeight <= bufferHeight;
+
+  const [visibleItems, setVisibleItems] = useState<GridItemType[]>([]);
 
   const positions = useCalculatePositions(
     containerElRef,
+    contentElRef,
     items,
     gap,
     breakpoints,
   );
+
+  const getVisibleItems = useCallback(() => {
+    const { scrollTop, clientHeight, bufferHeight } = computeScrollMetrics(
+      containerElRef,
+      buffer,
+    );
+    const viewportBottomWithBuffer = scrollTop + clientHeight + bufferHeight;
+
+    return items.filter((item) => {
+      const pos = positions[item.key];
+      return (
+        pos &&
+        pos.y + pos.height > scrollTop - bufferHeight &&
+        pos.y < viewportBottomWithBuffer
+      );
+    });
+  }, [containerElRef, items, positions, buffer]);
 
   useEffect(() => {
     if (isAtBottom && isFunction(onLoadMore)) {
@@ -34,22 +58,34 @@ const Grid: React.FC<GridProps> = ({
     }
   }, [isAtBottom, onLoadMore]);
 
+  const updateVisibleItems = useCallback(() => {
+    const items = getVisibleItems();
+    setVisibleItems((prev) => (isEqual(items, prev) ? prev : items));
+  }, [getVisibleItems]);
+
+  const handleScroll = useCallback(() => {
+    updateVisibleItems();
+  }, [updateVisibleItems]);
+
+  useEffect(() => {
+    updateVisibleItems();
+  }, [updateVisibleItems]);
+
+  useHandleScroll(containerElRef, handleScroll);
+
   return (
-    <div ref={containerElRef}>
-      {items.map((item: GridItemType) => {
-        const position = positions[item.key];
-        return (
-          position && (
-            <Item
-              key={item.key}
-              item={item}
-              position={position}
-              onClick={onItemClick}
-            />
-          )
-        );
-      })}
-    </div>
+    <Container ref={containerElRef}>
+      <Content ref={contentElRef}>
+        {visibleItems.map((item: GridItemType) => (
+          <Item
+            key={item.key}
+            item={item}
+            position={positions[item.key]}
+            onClick={onItemClick}
+          />
+        ))}
+      </Content>
+    </Container>
   );
 };
 
