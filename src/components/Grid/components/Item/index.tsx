@@ -1,8 +1,7 @@
 import React, { memo } from 'react';
 
-import { ItemProps } from './types';
-
 import { Wrapper, Image } from '@/components/Grid/components/Item/styled';
+import { ItemProps } from '@/components/Grid/components/Item/types';
 
 const Item: React.FC<ItemProps> = ({ item, position, onClick }) => (
   <Wrapper
