@@ -23,7 +23,7 @@ const Search: React.FC<{
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
       onSubmit(query);
-    }, 500);
+    }, 0);
     return () => clearTimeout(debounceTimer);
   }, [query]);
 

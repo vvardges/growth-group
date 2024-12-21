@@ -15,16 +15,18 @@ export interface fetchedPhotoType {
   alt: string;
 }
 
-const fetchFromPexels = (url: string) => {
+let nextPageUrl: string;
+let searchAbortController: AbortController | null;
+
+const fetchFromPexels = (url: string, signal?: AbortSignal) => {
   return fetch(url, {
     method: 'GET',
     headers: {
       Authorization: API_KEY,
     },
+    signal,
   });
 };
-
-let nextPageUrl: string;
 
 export const getPhotos = async () => {
   const response = await fetchFromPexels(
@@ -41,8 +43,16 @@ export const getPhotos = async () => {
 };
 
 export const searchPhotos = async (query: string) => {
+  if (searchAbortController) {
+    searchAbortController.abort();
+  }
+
+  searchAbortController = new AbortController();
+  const signal = searchAbortController.signal;
+
   const response = await fetchFromPexels(
-    `${URL}search?query=${query}&per_page=${PHOTOS_PER_PAGE}`,
+      `${URL}search?query=${query}&per_page=${PHOTOS_PER_PAGE}`,
+      signal,
   );
 
   if (!response.ok) {

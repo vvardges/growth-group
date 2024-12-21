@@ -33,7 +33,7 @@ const Gallery: React.FC = () => {
         : await getPhotos();
       setPhotos(fetchedPhotos.map(mapFetchedPhoto));
     } catch (err) {
-      if (err instanceof Error && err.message) {
+      if (err instanceof Error && err.message && err.name !== 'AbortError') {
         setError(err.message);
       }
     } finally {
