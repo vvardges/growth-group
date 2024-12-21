@@ -11,7 +11,7 @@ const Wrapper = styled.div.withConfig({
   top: 0;
   width: 100%;
   height: 5px;
-  z-index: 2;
+  z-index: 3;
 `;
 
 const Content = styled.div`
