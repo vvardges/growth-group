@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { fetchPhoto } from '@/fetchUtils';
+import { getPhoto } from '@/fetchUtils';
 import Layout from '@/components/Layout';
 import Card from '@/components/Card';
 import type { CardProps } from '@/components/Card';
@@ -18,7 +18,7 @@ const Photo: React.FC = () => {
     setLoading(true);
     const fetchData = async (id: string) => {
       try {
-        const fetchedPhoto = await fetchPhoto(id);
+        const fetchedPhoto = await getPhoto(id);
         setDetails({
           imageUrl: fetchedPhoto.src.original,
           photographerName: fetchedPhoto.photographer,

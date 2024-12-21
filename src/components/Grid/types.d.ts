@@ -8,6 +8,7 @@ export interface PositionType {
 export interface GridItemType {
   src: string;
   id: number;
+  key: string;
   aspectRatio: number;
   avgColor: string;
   onClick: () => void;
@@ -16,6 +17,7 @@ export interface GridItemType {
 
 export interface GridProps {
   items: GridItemType[];
+  onItemClick: (id: number) => void;
   onLoadMore?: () => void;
   isLoading?: boolean;
   gap?: number;

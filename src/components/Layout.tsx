@@ -24,7 +24,7 @@ const Layout: React.FC<{
 }> = ({ loading, error, children }) => {
   return (
     <>
-      {loading && <Loader />}
+      <Loader loading={loading} />
       {error && (
         <Error>
           Oops! Something went wrong! Please refresh the page. <br /> Error

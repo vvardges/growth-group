@@ -44,7 +44,7 @@ export const computeGridPositions = (
     const x = Number((minColumnIndex * (columnWidth + gap)).toFixed(2));
     const y = Number(columnHeights[minColumnIndex].toFixed(2));
 
-    positions[item.id] = {
+    positions[item.key] = {
       x,
       y,
       width: columnWidth,

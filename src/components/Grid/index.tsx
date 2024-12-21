@@ -35,6 +35,7 @@ const Image = styled.img`
 
 const Grid: React.FC<GridProps> = ({
   items,
+  onItemClick,
   onLoadMore,
   isLoading,
   gap = defaultConfigs.gap,
@@ -67,7 +68,7 @@ const Grid: React.FC<GridProps> = ({
     const viewportBottomWithBuffer = scrollTop + clientHeight + bufferHeight;
 
     return items.filter((item) => {
-      const pos = positions[item.id];
+      const pos = positions[item.key];
       return (
         pos &&
         pos.y + pos.height > scrollTop - bufferHeight &&
@@ -96,17 +97,17 @@ const Grid: React.FC<GridProps> = ({
   return (
     <div ref={containerElRef}>
       {visibleItems.map((item: GridItemType) => {
-        const position = positions[item.id];
+        const position = positions[item.key];
         return (
           <Item
-            key={item.id}
+            key={item.key}
             style={{
               transform: `translate(${position.x}px, ${position.y}px)`,
               width: position.width,
               height: position.height,
               background: item.avgColor,
             }}
-            onClick={item.onClick}
+            onClick={() => onItemClick(item.id)}
           >
             <Image src={item.src} loading="lazy" alt={item.alt} />
           </Item>

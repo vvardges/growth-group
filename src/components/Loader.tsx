@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{
+  isVisible: boolean;
+}>`
+  visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
   position: sticky;
   top: 0;
   width: 100%;
@@ -48,9 +51,11 @@ const Content = styled.div`
   }
 `;
 
-const Loader: React.FC = () => {
+const Loader: React.FC<{
+  loading: boolean;
+}> = ({ loading = false }) => {
   return (
-    <Wrapper>
+    <Wrapper isVisible={loading}>
       <Content className="loading-line"></Content>
     </Wrapper>
   );
