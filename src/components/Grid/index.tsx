@@ -1,38 +1,15 @@
-import { isEqual, isFunction } from 'lodash-es';
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import { isFunction } from 'lodash-es';
+import React, { memo, useCallback, useEffect, useRef } from 'react';
 
 import type { GridProps, GridItemType } from '@/components/Grid/types';
 
 import defaultConfigs from '@/components/Grid/configs';
 import { computeScrollMetrics } from '@/components/Grid/helpers';
 import {
-  useColumnSettings,
   useCalculatePositions,
   useScrollToBottom,
 } from '@/components/Grid/hooks';
-
-const Item = styled.div`
-  position: absolute;
-  color: black;
-  overflow: hidden;
-  will-change: transform;
-  transition: transform 0.2s ease-out;
-  cursor: pointer;
-
-  &:hover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
-const Image = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+import { Item, Image } from '@/components/Grid/styled';
 
 const Grid: React.FC<GridProps> = ({
   items,
@@ -43,21 +20,13 @@ const Grid: React.FC<GridProps> = ({
   breakpoints = defaultConfigs.breakpoints,
 }) => {
   const containerElRef = useRef<HTMLDivElement | null>(null);
-  const [visibleItems, setVisibleItems] = useState<GridItemType[] | []>([]);
   const isAtBottom = useScrollToBottom(buffer);
-
-  const { columnWidth, columnCount } = useColumnSettings(
-    containerElRef,
-    gap,
-    breakpoints,
-  );
 
   const positions = useCalculatePositions(
     containerElRef,
     items,
-    columnWidth,
-    columnCount,
     gap,
+    breakpoints,
   );
 
   const getVisibleItems = useCallback(() => {
@@ -77,17 +46,6 @@ const Grid: React.FC<GridProps> = ({
     });
   }, [containerElRef, items, positions, buffer]);
 
-  const updateVisibleItems = useCallback(() => {
-    const items = getVisibleItems();
-    setVisibleItems((prev: GridItemType[]) =>
-      isEqual(items, prev) ? prev : items,
-    );
-  }, [getVisibleItems]);
-
-  useEffect(() => {
-    updateVisibleItems();
-  }, [updateVisibleItems]);
-
   useEffect(() => {
     if (isAtBottom && isFunction(onLoadMore)) {
       onLoadMore();
@@ -96,7 +54,7 @@ const Grid: React.FC<GridProps> = ({
 
   return (
     <div ref={containerElRef}>
-      {visibleItems.map((item: GridItemType) => {
+      {getVisibleItems().map((item: GridItemType) => {
         const position = positions[item.key];
         return (
           <Item

@@ -1,31 +1,38 @@
 import { throttle } from 'lodash-es';
-import { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 import type { GridItemType, PositionType } from '@/components/Grid/types';
 
 import { computeGridPositions } from '@/components/Grid/helpers';
+import { GridBreakpoint } from '@/components/Grid/types';
+import useColumnSettings from '@/components/Grid/hooks/useColumnSettings';
 
 /**
  * Custom hook to calculate the positions of grid items in a masonry grid layout.
  * @param containerRef - Reference to the container element.
  * @param items - Array of grid items.
- * @param columnWidth - The width of each column.
- * @param columnCount - The number of columns.
  * @param gap - The gap between columns.
+ * @param breakpoints Array of breakpoints
  * @param delay - Throttle delay in milliseconds.
  */
 const useCalculatePositions = (
   containerRef: React.RefObject<HTMLDivElement>,
   items: GridItemType[],
-  columnWidth: number,
-  columnCount: number,
   gap: number,
+  breakpoints: GridBreakpoint[],
   delay: number = 300,
 ) => {
   const [positions, setPositions] = useState<Record<string, PositionType>>({});
 
+  const { columnWidth, columnCount } = useColumnSettings(
+    containerRef,
+    gap,
+    breakpoints,
+  );
+
   const updatePositions = useCallback(() => {
     if (!containerRef.current || !columnWidth) return;
+
     const { positions: newPositions, maxHeight } = computeGridPositions(
       items,
       columnWidth,
