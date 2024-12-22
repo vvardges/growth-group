@@ -9,23 +9,21 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Check for individual libraries and assign them to specific chunks
           if (id.includes('node_modules/react')) {
-            return 'react'; // Separate React-related libraries into a 'react' chunk
+            return 'react';
           }
           if (id.includes('node_modules/lodash-es')) {
-            return 'lodash'; // Separate lodash-es into a 'lodash' chunk
+            return 'lodash';
           }
           if (id.includes('node_modules/react-router-dom')) {
-            return 'router'; // Separate react-router-dom into a 'router' chunk
+            return 'router';
           }
           if (id.includes('node_modules/styled-components')) {
-            return 'styled-components'; // Separate styled-components into a 'styled-components' chunk
+            return 'styled-components';
           }
 
-          // If none of the above conditions are matched, bundle in the vendor chunk
           if (id.includes('node_modules')) {
-            return 'vendor'; // All other third-party dependencies
+            return 'vendor';
           }
         },
       },
