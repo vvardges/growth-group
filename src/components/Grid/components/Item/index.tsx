@@ -6,19 +6,19 @@ import { ItemProps } from '@/components/Grid/components/Item/types';
 const Item: React.FC<ItemProps> = ({ item, position, onClick }) => {
   const lcpImageUrl = item.src.medium;
 
-  useEffect(() => {
-    const preloadLink = document.createElement('link');
-    preloadLink.rel = 'preload';
-    preloadLink.href = lcpImageUrl;
-    preloadLink.as = 'image';
-    preloadLink.fetchpriority = item.isCritical ? 'high' : 'low'
-
-    document.head.appendChild(preloadLink);
-
-    return () => {
-      document.head.removeChild(preloadLink);
-    };
-  }, [lcpImageUrl]);
+  // useEffect(() => {
+  //   const preloadLink = document.createElement('link');
+  //   preloadLink.rel = 'preload';
+  //   preloadLink.href = lcpImageUrl;
+  //   preloadLink.as = 'image';
+  //   preloadLink.fetchpriority = item.isCritical ? 'high' : 'low'
+  //
+  //   document.head.appendChild(preloadLink);
+  //
+  //   return () => {
+  //     document.head.removeChild(preloadLink);
+  //   };
+  // }, [lcpImageUrl]);
 
   const { original, large2x, large, medium, small } =
     item.src;
