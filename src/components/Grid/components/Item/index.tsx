@@ -11,6 +11,7 @@ const Item: React.FC<ItemProps> = ({ item, position, onClick }) => {
     preloadLink.rel = 'preload';
     preloadLink.href = lcpImageUrl;
     preloadLink.as = 'image';
+    preloadLink.fetchpriority = item.isCritical ? 'high' : 'low'
 
     document.head.appendChild(preloadLink);
 
@@ -55,6 +56,7 @@ const Item: React.FC<ItemProps> = ({ item, position, onClick }) => {
       <Image
         src={lcpImageUrl}
         loading={item.isCritical ? 'eager' : 'lazy'}
+        fetchpriority={item.isCritical ? 'high' : 'low'}
         alt={item.alt}
         srcSet={imageSrcSet}
         sizes={imageSizes}
