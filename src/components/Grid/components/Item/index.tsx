@@ -56,7 +56,7 @@ const Item: React.FC<ItemProps> = ({ item, position, onClick }) => {
       <Image
         src={lcpImageUrl}
         loading={item.isCritical ? 'eager' : 'lazy'}
-        fetchpriority={item.isCritical ? 'high' : 'low'}
+        fetchPriority={item.isCritical ? 'high' : 'low'}
         alt={item.alt}
         srcSet={imageSrcSet}
         sizes={imageSizes}
