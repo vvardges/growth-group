@@ -9,14 +9,14 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules/react')) {
-            return 'react'; // Separate React-related libraries into a chunk
-          }
-          if (id.includes('node_modules/lodash')) {
-            return 'lodash'; // Separate lodash into its own chunk
-          }
           if (id.includes('node_modules')) {
-            return 'vendor'; // Put everything else into the vendor chunk
+            if (id.includes('lodash-es')) {
+              return 'lodash-es-vendor';
+            }
+            if (id.includes('react-dom')) {
+              return 'react-dom';
+            }
+            return 'vendor';
           }
         },
       },
