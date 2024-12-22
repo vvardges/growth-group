@@ -1,6 +1,5 @@
 import { PHOTOS_PER_PAGE } from '@/constants';
 
-// @ts-ignore
 const API_KEY = import.meta.env.VITE_PEXELS_API_KEY;
 const URL = 'https://api.pexels.com/v1/';
 

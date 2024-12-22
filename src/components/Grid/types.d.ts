@@ -6,14 +6,23 @@ export interface PositionType {
 }
 
 export interface GridItemType {
-  src: string;
+  src: {
+    original: string;
+    large2x: string;
+    large: string;
+    medium: string;
+    small: string;
+    portrait: string;
+    landscape: string;
+    tiny: string;
+  };
   id: number;
   key: string;
   aspectRatio: number;
   avgColor: string;
   onClick: () => void;
   alt: string;
-  isCritical?: boolean
+  isCritical?: boolean;
 }
 
 export interface GridProps {

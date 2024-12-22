@@ -7,12 +7,12 @@ import type { fetchedPhotoType } from '@/fetchUtils.ts';
 import Grid from '@/components/Grid';
 import Layout from '@/components/Layout';
 import Search from '@/components/Search';
-import { getPhotos, searchPhotos, fetchMorePhotos } from '@/fetchUtils';
 import { DEFAULT_GRID_CONFIGS, PHOTOS_PER_PAGE } from '@/constants';
+import { getPhotos, searchPhotos, fetchMorePhotos } from '@/fetchUtils';
 
 const mapFetchedPhoto = (photo: fetchedPhotoType, index: number) => {
   return {
-    src: photo.src.large,
+    src: photo.src,
     aspectRatio: photo.width / photo.height,
     id: photo.id,
     avgColor: photo.avg_color,
