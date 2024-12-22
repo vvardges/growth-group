@@ -5,7 +5,7 @@ import { ItemProps } from '@/components/Grid/components/Item/types';
 
 const Item: React.FC<ItemProps> = ({ item, position, onClick }) => {
   const { original, large2x, large, medium, small } = item.src;
-  const lcpImageUrl = original;
+  const lcpImageUrl = medium;
 
   useEffect(() => {
     const preloadLink = document.createElement('link');
