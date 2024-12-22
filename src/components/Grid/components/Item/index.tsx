@@ -4,21 +4,22 @@ import { Wrapper, Image } from '@/components/Grid/components/Item/styled';
 import { ItemProps } from '@/components/Grid/components/Item/types';
 
 const Item: React.FC<ItemProps> = ({ item, position, onClick }) => {
-  const lcpImageUrl = item.src.medium;
+  const { original, large2x, large, medium, small } = item.src;
+  const lcpImageUrl = original;
 
   useEffect(() => {
     const preloadLink = document.createElement('link');
     preloadLink.rel = 'preload';
     preloadLink.href = lcpImageUrl;
     preloadLink.as = 'image';
-    preloadLink.fetchpriority = item.isCritical ? 'high' : 'low';
+    preloadLink.fetchPriority = item.isCritical ? 'high' : 'low';
 
     document.head.appendChild(preloadLink);
 
     return () => {
       document.head.removeChild(preloadLink);
     };
-  }, [lcpImageUrl]);
+  }, [original]);
 
   return (
     <Wrapper
@@ -34,6 +35,8 @@ const Item: React.FC<ItemProps> = ({ item, position, onClick }) => {
       <Image
         src={lcpImageUrl}
         loading={item.isCritical ? 'eager' : 'lazy'}
+        srcSet={`${small} 600w, ${medium} 1200w, ${large} 1800w, ${large2x} 2400w`}
+        sizes="(max-width: 600px) 600px, (max-width: 1200px) 1200px, 1800px"
         alt={item.alt}
       />
     </Wrapper>
