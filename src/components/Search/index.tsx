@@ -29,6 +29,7 @@ const Search: React.FC<{
   return (
     <Input
       type="text"
+      name="search"
       placeholder="Search..."
       onChange={(e) => handleChange(e.target.value)}
     />

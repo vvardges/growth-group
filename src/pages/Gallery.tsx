@@ -12,7 +12,7 @@ import { DEFAULT_GRID_CONFIGS, PHOTOS_PER_PAGE } from '@/constants';
 
 const mapFetchedPhoto = (photo: fetchedPhotoType, index: number) => {
   return {
-    src: photo.src.medium,
+    src: photo.src.large,
     aspectRatio: photo.width / photo.height,
     id: photo.id,
     avgColor: photo.avg_color,
