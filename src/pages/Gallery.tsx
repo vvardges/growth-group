@@ -28,6 +28,25 @@ const Gallery: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    const preloadLinks: HTMLLinkElement[] = [];
+    photos.forEach((photo) => {
+      const preloadLink = document.createElement('link');
+      preloadLinks.push(preloadLink);
+      preloadLink.rel = 'preload';
+      preloadLink.href = photo.src.medium;
+      preloadLink.as = 'image';
+
+      document.head.appendChild(preloadLink);
+    });
+
+    return () => {
+      preloadLinks.forEach((preloadLink) =>
+        document.head.removeChild(preloadLink),
+      );
+    };
+  }, [photos]);
+
   const fetchInitialData = async (query?: string | undefined) => {
     setLoading(true);
     try {
