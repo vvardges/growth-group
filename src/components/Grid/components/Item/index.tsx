@@ -4,7 +4,7 @@ import { Wrapper, Image } from '@/components/Grid/components/Item/styled';
 import { ItemProps } from '@/components/Grid/components/Item/types';
 
 const Item: React.FC<ItemProps> = ({ item, position, onClick }) => {
-  const { large2x, large, medium, small } = item.src;
+  const { large, medium, small } = item.src;
 
   return (
     <Wrapper
@@ -20,8 +20,8 @@ const Item: React.FC<ItemProps> = ({ item, position, onClick }) => {
       <Image
         src={medium}
         loading={item.isCritical ? 'eager' : 'lazy'}
-        srcSet={`${small} 600w, ${medium} 1200w, ${large} 1800w, ${large2x} 2400w`}
-        sizes="(max-width: 600px) 600px, (max-width: 1200px) 1200px, 1800px"
+        srcSet={`${small} 150h, ${medium} 350h, ${large} 940w`}
+        sizes="(max-width: 600px) 300px, 600px"
         alt={item.alt}
       />
     </Wrapper>
