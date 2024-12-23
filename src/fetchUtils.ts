@@ -1,7 +1,7 @@
 import { PHOTOS_PER_PAGE } from '@/constants';
 
 const API_KEY = import.meta.env.VITE_PEXELS_API_KEY;
-const URL = 'https://api.pexels.com/v1/';
+const API_URL = import.meta.env.VITE_PEXELS_API_URL;
 
 export interface fetchedPhotoType {
   id: number;
@@ -30,7 +30,7 @@ const fetchFromPexels = (url: string, signal?: AbortSignal) => {
 
 export const getPhotos = async () => {
   const response = await fetchFromPexels(
-    `${URL}curated?per_page=${PHOTOS_PER_PAGE}`,
+    `${API_URL}/curated?per_page=${PHOTOS_PER_PAGE}`,
   );
 
   if (!response.ok) {
@@ -51,7 +51,7 @@ export const searchPhotos = async (query: string) => {
   const signal = searchAbortController.signal;
 
   const response = await fetchFromPexels(
-    `${URL}search?query=${query}&per_page=${PHOTOS_PER_PAGE}`,
+    `${API_URL}/search?query=${query}&per_page=${PHOTOS_PER_PAGE}`,
     signal,
   );
 

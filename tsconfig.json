@@ -10,7 +10,10 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
   },
+  "files": [
+    "env.d.ts"
+  ],
   "include": ["src/**/*"]
 }
