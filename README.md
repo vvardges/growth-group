@@ -3,6 +3,8 @@
 This project is an implementation of an optimized virtualized masonry grid that displays a collection of photos. The grid layout adjusts dynamically, offering an efficient and seamless experience when navigating large photo collections. Clicking on a photo brings up a detailed view with additional information.
 The project includes a search functionality that allows users to filter images based on keywords or tags, helping users quickly find specific photos within large datasets. The search updates in real-time as users type, providing an efficient and smooth search experience.
 
+![Preview](./public/preview.png)
+
 ---
 
 ## Table of Contents
@@ -128,3 +130,5 @@ The following tools and libraries were used to build this project:
 - **React.lazy**: For code-splitting React components to improve load performance.
 - **Lighthouse**: An open-source, automated tool for improving the quality of web pages, used to measure performance and best practices.
 - **Web Vitals**: A set of metrics that help capture the user experience of a site, measuring things like load times and interactivity. We use Web Vitals to track performance and ensure a smooth user experience.
+
+![Performance](./public/performance.png)
