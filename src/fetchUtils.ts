@@ -65,7 +65,7 @@ export const searchPhotos = async (query: string) => {
 };
 
 export const getPhoto = async (id: string) => {
-  const response = await fetchFromPexels(`${URL}photos/${id}`);
+  const response = await fetchFromPexels(`${API_URL}photos/${id}`);
 
   if (!response.ok) {
     throw new Error('Failed to fetch data from Pexels API');
