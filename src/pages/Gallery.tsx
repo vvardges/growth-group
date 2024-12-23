@@ -34,7 +34,7 @@ const Gallery: React.FC = () => {
       const preloadLink = document.createElement('link');
       preloadLinks.push(preloadLink);
       preloadLink.rel = 'preload';
-      preloadLink.href = photo.src.medium;
+      preloadLink.href = photo.src.small;
       preloadLink.as = 'image';
 
       document.head.appendChild(preloadLink);
